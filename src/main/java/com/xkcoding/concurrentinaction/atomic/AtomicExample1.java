@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 并发下 AtomicInteger 累加
  * </p>
  *
- * @package: com.xkcoding.concurrentinaction.notsafe
+ * @package: com.xkcoding.concurrentinaction.atomic
  * @description： 并发下 AtomicInteger 累加
  * @author: yangkai.shen
  * @date: Created in 2018/8/23 下午11:27
