@@ -1,10 +1,9 @@
 package com.xkcoding.concurrentinaction.atomic;
 
 import com.xkcoding.concurrentinaction.annotation.ThreadSafe;
+import com.xkcoding.concurrentinaction.base.AbstractConcurrentTest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
-import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -22,43 +21,26 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @ThreadSafe
 @Slf4j
-public class AtomicExample2 {
+public class AtomicExample2 extends AbstractConcurrentTest {
 
-	/**
-	 * 请求总数
-	 */
-	public final static int CLIENT_TOTAL = 5000;
-
-	/**
-	 * 同时并发执行的线程数
-	 */
-	public final static int THREAD_TOTAL = 200;
-
-	public static AtomicLong count = new AtomicLong(0);
+	private AtomicLong count = new AtomicLong(0);
 
 	public static void main(String[] args) throws Exception {
-		ExecutorService executor = new ThreadPoolExecutor(20, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(1024), new BasicThreadFactory.Builder().namingPattern("thread-%d").build());
-		final Semaphore semaphore = new Semaphore(THREAD_TOTAL);
-		final CountDownLatch countDownLatch = new CountDownLatch(CLIENT_TOTAL);
-		for (int i = 0; i < CLIENT_TOTAL; i++) {
-			executor.execute(() -> {
-				try {
-					semaphore.acquire();
-					add();
-					semaphore.release();
-				} catch (Exception e) {
-					log.error("exception", e);
-				}
-				countDownLatch.countDown();
-			});
-		}
-		countDownLatch.await();
-		executor.shutdown();
-		log.info("count:{}", count);
+		AtomicExample2 example2 = new AtomicExample2();
+		example2.execute();
+		log.info("count:{}", example2.count.get());
 	}
 
-	private static void add() {
+	private void add() {
 		count.incrementAndGet(); // 类似 ++i
 //		count.getAndIncrement(); // 类似 i++
+	}
+
+	/**
+	 * 待测试的方法
+	 */
+	@Override
+	public void testMethod() {
+		add();
 	}
 }
