@@ -33,7 +33,7 @@ public class AtomicExample1 extends AbstractConcurrentTest {
 
 	private void add() {
 		count.incrementAndGet(); // 类似 ++i
-//		count.getAndIncrement(); // 类似 i++
+		//		count.getAndIncrement(); // 类似 i++
 	}
 
 	/**

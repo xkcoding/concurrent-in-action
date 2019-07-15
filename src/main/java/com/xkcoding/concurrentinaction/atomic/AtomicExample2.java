@@ -23,24 +23,24 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class AtomicExample2 extends AbstractConcurrentTest {
 
-	private AtomicLong count = new AtomicLong(0);
+    private AtomicLong count = new AtomicLong(0);
 
-	public static void main(String[] args) throws Exception {
-		AtomicExample2 example2 = new AtomicExample2();
-		example2.execute();
-		log.info("count:{}", example2.count.get());
-	}
+    public static void main(String[] args) throws Exception {
+        AtomicExample2 example2 = new AtomicExample2();
+        example2.execute();
+        log.info("count:{}", example2.count.get());
+    }
 
-	private void add() {
-		count.incrementAndGet(); // 类似 ++i
-//		count.getAndIncrement(); // 类似 i++
-	}
+    private void add() {
+        count.incrementAndGet(); // 类似 ++i
+        //		count.getAndIncrement(); // 类似 i++
+    }
 
-	/**
-	 * 待测试的方法
-	 */
-	@Override
-	public void testMethod() {
-		add();
-	}
+    /**
+     * 待测试的方法
+     */
+    @Override
+    public void testMethod() {
+        add();
+    }
 }

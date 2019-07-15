@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/threadLocal")
 public class ThreadLocalController {
 
-	/**
-	 * 测试ThreadLocal保存的值
-	 */
-	@GetMapping("/test")
-	public Long test() {
-		return RequestHolder.getId();
-	}
+    /**
+     * 测试ThreadLocal保存的值
+     */
+    @GetMapping("/test")
+    public Long test() {
+        return RequestHolder.getId();
+    }
 }
